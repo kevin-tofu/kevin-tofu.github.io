@@ -1,0 +1,1 @@
+import{_ as e,D as a,E as o,N as t}from"./index.8de02e9f.js";const s=a({name:"GarallyPage",components:{},props:{},setup(){return{}}}),n={class:"about"};function r(c,p,_,l,d,f){return o(),t("div",n)}var m=e(s,[["render",r]]);export{m as default};
