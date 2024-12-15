@@ -1,0 +1,1 @@
+const e={AUTHOR:"Kevin",ADDRESS:"koheitech001 [[at]] gmail~~~com",DESCRIPTION:"test website",WORDPRESS_URL:"https://eye.kohei-kevin.com",id_categories:{JAPAN:"7",PROCESSING:"3",TECH:"6",CULTURE:"4",QUANTUM:"9",PHYSICS:"10"}};export{e as c};
