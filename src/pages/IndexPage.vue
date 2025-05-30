@@ -1,55 +1,72 @@
+<style scoped>
+.my-card {
+    min-width: 30rem;
+    max-width: 30rem;
+    height: 30rem;
+    /* width: 20%; */
+    margin: 30px auto;
+    text-align: center;
+    /* background-color: #AAAAFF */
+}
+</style>
 <template>
-  <q-page class="row items-center justify-evenly">
-    <example-component
-      title="Example component"
-      active
-      :todos="todos"
-      :meta="meta"
-    ></example-component>
-  </q-page>
+  <div class='about'>
+
+    <div class='q-pa-md row items-start q-gutter-lg justify-center' >
+      <q-card class='my-card'>
+        <q-img 
+          class='justify-center'
+          :src='url_image'
+          native-context-menu
+          alt='Logo'
+          basic
+          width='20rem'
+        ></q-img>
+        
+        <q-card-section>
+          <div class='text-h6'>Profile</div>
+          <!-- <div class='text-subtitle2'>{{author}}</div> -->
+        </q-card-section>
+
+        <q-card-section class='q-pt-none'>
+          <!-- {{ lorem }} -->
+        </q-card-section>
+      </q-card>
+
+    </div>
+    
+
+  </div>
+
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
-import type { Todo, Meta } from 'components/models';
-import ExampleComponent from 'components/ExampleComponent.vue';
+
+// const config = require('')
+import { config } from '../config.js'
+import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
+
   name: 'IndexPage',
+  // name: 'HomePage',
 
   components: {
-    ExampleComponent
+  },
+  
+  props: {
+    // modelValue: {type: Array, default: params_opticalflow.params_opt, required: true}
   },
 
   setup () {
-    const todos = ref<Todo[]>([
-      {
-        id: 1,
-        content: 'ct1'
-      },
-      {
-        id: 2,
-        content: 'ct2'
-      },
-      {
-        id: 3,
-        content: 'ct3'
-      },
-      {
-        id: 4,
-        content: 'ct4'
-      },
-      {
-        id: 5,
-        content: 'ct5'
-      }
-    ]);
 
-    const meta = ref<Meta>({
-      totalCount: 1200
-    });
-
-    return { todos, meta };
+    const url_image = ref('https://eye.kohei-kevin.com/wp-content/uploads/2023/01/IMG-8888.jpg')
+    return {
+      author: config.AUTHOR,
+      address: config.ADDRESS,
+      description: config.DESCRIPTION,
+      url_image
+    }
   }
-});
+})
 </script>

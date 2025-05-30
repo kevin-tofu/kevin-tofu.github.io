@@ -1,10 +1,9 @@
 <template>
   <q-item
-    :clickable="!!link"
+    clickable
     tag="a"
-    :href="link || undefined"
     target="_blank"
-    v-if="link"
+    :href="link"
   >
     <q-item-section
       v-if="icon"
@@ -21,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'EssentialLink',
@@ -38,8 +37,7 @@ export default defineComponent({
 
     link: {
       type: String,
-      default: null,
-      validator: (value: string | null) => !value || value.startsWith('http')
+      default: '#'
     },
 
     icon: {
@@ -47,5 +45,5 @@ export default defineComponent({
       default: ''
     }
   }
-});
+})
 </script>

@@ -1,40 +1,49 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view='lHh Lpr lFf'>
     <q-header elevated>
       <q-toolbar>
         <q-btn
           flat
           dense
           round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
+          icon='menu'
+          aria-label='Menu'
+          @click='toggleLeftDrawer'
         />
 
         <q-toolbar-title>
-          Quasar App
+          Welcome to My Github Website
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <div>v{{ $q.version }}</div>
       </q-toolbar>
     </q-header>
 
     <q-drawer
-      v-model="leftDrawerOpen"
+      v-model='leftDrawerOpen'
       show-if-above
       bordered
     >
       <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
+        <q-item-label header>Items</q-item-label>
+        <EssentialItem
+          v-for='nav_loop in essentialItems0'
+          :key='nav_loop.title'
+          v-bind='nav_loop'
+        />
 
+        <q-item-label header>Tools</q-item-label>
+        <EssentialItem
+          v-for='nav_loop in essentialItems1'
+          :key='nav_loop.title'
+          v-bind='nav_loop'
+        />
+        
+        <q-item-label header>Links</q-item-label>
         <EssentialLink
-          v-for="link in linksList"
-          :key="link.title"
-          v-bind="link"
+          v-for='link in essentialLinks'
+          :key='link.title'
+          v-bind='link'
         />
       </q-list>
     </q-drawer>
@@ -46,71 +55,64 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
-import EssentialLink, { type EssentialLinkProps } from 'components/EssentialLink.vue';
+import { defineComponent, ref } from 'vue'
+// import EssentialLink from 'components/EssentialLink.vue'
+import EssentialItem from '../components/basics-quasar-ts/EssentialItem.vue'
+import EssentialLink from '../components/basics-quasar-ts/EssentialLink.vue'
 
-const linksList: EssentialLinkProps[] = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
+const linksList = [
   {
     title: 'Github',
-    caption: 'github.com/quasarframework',
+    caption: 'my github repository',
     icon: 'code',
-    link: 'https://github.com/quasarframework'
+    link: 'https://github.com/kevin-tofu'
   },
   {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
+    title: 'LinkedIn',
+    caption: 'My LinkedIn profiole',
+    icon: 'face',
+    link: 'https://linkedin.com/in/kohei-watanabe-694373172/'
   }
-];
+]
+// https://quasar.dev/vue-components/icon
+const itemlist0 = [
+  {title: 'Home', caption: 'home', icon: 'home', to: {name: 'IndexPage'}},
+  {title: 'Tech-Tips', caption: 'tips', icon: 'computer', to: {name: 'ArticleTech'}},
+  {title: 'Signal Processing', caption: 'signal processing', icon: 'show_chart', to: {name: 'ArticleProcessing'}},
+  {title: 'Quantum', caption: 'quantum', icon: 'memory', to: {name: 'ArticleQuantum'}},
+  {title: 'Physics', caption: 'physics', icon: 'science', to: {name: 'ArticlePhysics'}},
+  {title: 'Machine Learning', caption: 'machine learning', icon: 'psychology', to: {name: 'ArticleMachineLearning'}},
+  {title: 'Culture', caption: 'culture', icon: 'collections', to: {name: 'ArticleCulture'}},
+  {title: 'Japan', caption: 'japan', icon: 'translate', to: {name: 'ArticleJapan'}},
+  {title: 'About', caption: 'about', icon: 'email', to: {name: 'AboutPage'}},
+]
+const itemlist1 = [
+  {title: 'Pixel Viewer', caption: 'check pixel coordinate', icon: 'image', to: {name: 'PixelViewer'}},
+  {title: 'Image Resizer', caption: 'check pixel coordinate', icon: 'image', to: {name: 'ImageResizer'}},
+  {title: 'Text Length Counter', caption: '', icon: 'description', to: {name: 'TextlengthCounter'}},
+  {title: 'WorldTime Checker', caption: '', icon: 'access_time', to: {name: 'WorldTime'}},
+]
 
 export default defineComponent({
   name: 'MainLayout',
 
   components: {
-    EssentialLink
+    EssentialLink, 
+    EssentialItem
   },
 
   setup () {
-    const leftDrawerOpen = ref(false);
+    const leftDrawerOpen = ref(false)
 
     return {
-      linksList,
+      essentialItems0: itemlist0, 
+      essentialItems1: itemlist1, 
+      essentialLinks: linksList,
       leftDrawerOpen,
       toggleLeftDrawer () {
-        leftDrawerOpen.value = !leftDrawerOpen.value;
+        leftDrawerOpen.value = !leftDrawerOpen.value
       }
-    };
+    }
   }
-});
+})
 </script>

@@ -1,16 +1,15 @@
 <template>
+
   <q-item
-    :clickable="!!link"
-    tag="a"
-    :href="link || undefined"
-    target="_blank"
-    v-if="link"
+    clickable
+    :to="to"
   >
     <q-item-section
       v-if="icon"
       avatar
     >
       <q-icon :name="icon" />
+      <!-- <q-icon color="primary" name="bluetooth" /> -->
     </q-item-section>
 
     <q-item-section>
@@ -18,13 +17,14 @@
       <q-item-label caption>{{ caption }}</q-item-label>
     </q-item-section>
   </q-item>
+
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'EssentialLink',
+  name: 'EssentialItem',
   props: {
     title: {
       type: String,
@@ -36,10 +36,9 @@ export default defineComponent({
       default: ''
     },
 
-    link: {
-      type: String,
-      default: null,
-      validator: (value: string | null) => !value || value.startsWith('http')
+    to: {
+      type: Object,
+      default: ()=> {return {name: 'About'}}
     },
 
     icon: {
@@ -47,5 +46,5 @@ export default defineComponent({
       default: ''
     }
   }
-});
+})
 </script>
