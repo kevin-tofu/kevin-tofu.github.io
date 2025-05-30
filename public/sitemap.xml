@@ -1,0 +1,606 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://kevin-tofu.github.io/</loc>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/05/20/see-statistics-of-your-python-package/</loc>
+    <lastmod>2025-05-22T13:33:14</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/05/18/docker-installation-with-snap/</loc>
+    <lastmod>2025-05-18T09:23:38</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/05/01/scipy-and-scikit-fem-based-topology-optimization-library/</loc>
+    <lastmod>2025-05-25T14:39:42</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/04/22/git-large-file-storage/</loc>
+    <lastmod>2025-05-16T14:48:35</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/04/11/failed-to-renew-certificate-in-issuer-in-kubernetes/</loc>
+    <lastmod>2025-05-02T15:01:04</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/04/06/run-tests-scrtipts-with-pytest-on-github-actions/</loc>
+    <lastmod>2025-04-06T16:19:12</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/03/31/upload-your-package-to-pypi-with-poetry/</loc>
+    <lastmod>2025-05-13T01:41:02</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/03/31/topology-optimization/</loc>
+    <lastmod>2025-04-01T23:21:25</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/03/24/python-logger/</loc>
+    <lastmod>2025-03-24T13:11:14</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/03/16/augmented-lagrangian-method/</loc>
+    <lastmod>2025-03-16T13:28:23</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/03/16/shape-optimization/</loc>
+    <lastmod>2025-03-17T13:29:49</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/03/15/3165/</loc>
+    <lastmod>2025-03-15T06:24:45</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/03/12/download-files-with-wget-thru-proxy-server/</loc>
+    <lastmod>2025-03-10T22:52:30</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/03/11/simple-finite-element-analysis-with-scikit-fem/</loc>
+    <lastmod>2025-03-17T14:11:17</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/03/11/equilibrium-analysis/</loc>
+    <lastmod>2025-03-11T22:05:15</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/03/08/spsolve-vs-lsmr/</loc>
+    <lastmod>2025-03-08T04:44:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/03/07/how-sparse-matrix-stores-the-data/</loc>
+    <lastmod>2025-03-07T00:19:41</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/03/06/apply-schur-compliment-to/</loc>
+    <lastmod>2025-03-06T15:28:31</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/03/06/schur-complement/</loc>
+    <lastmod>2025-03-06T15:10:19</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/03/06/operation-of-sparse-matrix-in-scipy/</loc>
+    <lastmod>2025-03-07T14:22:08</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/03/06/comparison-between-sparse-dense-matrix-to-solve-linear-equation/</loc>
+    <lastmod>2025-03-06T14:47:53</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/03/03/practice-openmdao/</loc>
+    <lastmod>2025-03-04T13:14:09</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/03/03/optimization-solver-ooenmdao/</loc>
+    <lastmod>2025-03-03T13:37:35</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/02/27/framat-nice-repository-for-understanding-beam-element-analysis/</loc>
+    <lastmod>2025-02-28T16:41:28</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/02/24/read-stl-file-in-cpp-with-igl/</loc>
+    <lastmod>2025-02-24T14:21:28</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/02/22/write-cmakelists-for-eigen/</loc>
+    <lastmod>2025-05-13T01:41:45</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/02/20/minecraft-server-deployment-on-kubernetes/</loc>
+    <lastmod>2025-02-23T13:45:42</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/02/20/unexpected-behavior-in-python-mutable-variable-as-default-arguments/</loc>
+    <lastmod>2025-02-20T15:12:48</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/02/20/how-to-copy-files-from-a-pod-in-kubernetes/</loc>
+    <lastmod>2025-02-20T15:13:04</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/02/18/read-json-file-with-cpp/</loc>
+    <lastmod>2025-02-18T13:00:53</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/02/16/harrow-hassidim-lloyd-algorithm/</loc>
+    <lastmod>2025-02-16T01:49:33</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/02/09/oh-no-something-has-gone-wrong-in-ubuntu/</loc>
+    <lastmod>2025-02-09T09:49:45</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/02/08/the-good-points-of-using-sac-soft-actor-critic/</loc>
+    <lastmod>2025-02-10T06:03:08</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/02/08/arg-parse-with-cli-in-c/</loc>
+    <lastmod>2025-02-08T14:01:45</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/02/06/note-q-learning/</loc>
+    <lastmod>2025-02-06T13:56:11</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/02/03/bayesian-optimization/</loc>
+    <lastmod>2025-02-03T13:42:48</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/02/02/fetch-data-and-update-on-the-data-editor-in-streamlit/</loc>
+    <lastmod>2025-01-28T03:22:32</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/02/01/streamlit-with-pydantic-basemodel/</loc>
+    <lastmod>2025-02-01T06:32:16</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/01/28/unified-form-of-elastic-mechanic/</loc>
+    <lastmod>2025-01-28T22:31:37</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/01/28/the-quality-of-a-video-from-sora/</loc>
+    <lastmod>2025-01-29T13:01:43</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/01/28/ffmpeg-cheat-sheat-for-downgrade-mp4/</loc>
+    <lastmod>2025-05-13T01:42:05</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/01/27/docker-compose-for-celery-worker-service/</loc>
+    <lastmod>2025-01-28T03:00:32</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/01/25/rotation-of-a-rigid-body-and-jahnibekov-effect/</loc>
+    <lastmod>2025-01-25T13:25:36</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/01/24/how-to-efficiently-pass-default-variables-to-members-on-dataclass-or-basemodel/</loc>
+    <lastmod>2025-01-25T08:01:37</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/01/24/how-to-use-validator-in-basemodel-pydantic/</loc>
+    <lastmod>2025-01-24T13:06:42</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/01/20/wiener-khinchin-theorem/</loc>
+    <lastmod>2025-01-20T13:56:57</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/01/12/sph-with-taichi/</loc>
+    <lastmod>2025-01-12T14:14:07</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/01/12/dont-do-rag/</loc>
+    <lastmod>2025-01-13T00:27:47</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/01/10/troubleshooting-around-cert-manager/</loc>
+    <lastmod>2025-01-10T23:37:17</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/01/04/how-should-we-choose-rl-algorithm/</loc>
+    <lastmod>2025-02-06T13:49:38</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/01/04/particle-motion-simulation-with-taichi/</loc>
+    <lastmod>2025-01-04T14:05:06</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/01/04/check-cpu-info/</loc>
+    <lastmod>2025-01-04T06:15:27</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/01/04/install-japanese-input-on-ubuntu/</loc>
+    <lastmod>2025-01-04T03:01:37</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/01/04/usability-of-zepp-app/</loc>
+    <lastmod>2025-01-04T03:00:47</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/01/03/run-sample-code-in-genesis/</loc>
+    <lastmod>2025-01-11T00:22:41</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/01/03/connect-internet-with-command/</loc>
+    <lastmod>2025-01-03T01:29:53</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2025/01/03/2638/</loc>
+    <lastmod>2025-01-03T23:35:50</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/12/24/review-the-size-and-weights-of-amazfit-t-rex-3/</loc>
+    <lastmod>2025-01-12T14:36:58</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/12/22/encode-and-decode-my-step-object-with-cad-recode/</loc>
+    <lastmod>2025-01-11T00:23:23</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/12/20/point-cloud-encoding-in-cad-recode/</loc>
+    <lastmod>2024-12-21T00:32:07</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/12/14/note-iron-types/</loc>
+    <lastmod>2024-12-14T14:38:16</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/12/10/analyze-cad-data-using-open-cascade-technology/</loc>
+    <lastmod>2024-12-10T15:06:28</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/12/10/core-parts-of-deepcad/</loc>
+    <lastmod>2025-01-11T00:23:36</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/12/10/freecad-cam-workbench/</loc>
+    <lastmod>2024-12-10T10:43:31</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/12/03/pyenv-cheetsheet/</loc>
+    <lastmod>2025-01-03T01:44:31</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/11/28/how-to-schedule-a-command-to-run-at-specific-time/</loc>
+    <lastmod>2024-11-28T13:54:02</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/11/26/upgrade-ubuntu-version/</loc>
+    <lastmod>2024-12-06T15:21:03</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/11/18/chamfer-distance-and-earth-movers-distance/</loc>
+    <lastmod>2024-11-18T13:22:23</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/11/11/python-library-multiple-dispatch/</loc>
+    <lastmod>2024-11-11T09:06:42</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/11/07/upgrade-cert-maneger/</loc>
+    <lastmod>2024-11-07T23:49:39</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/11/07/upgrade-microk8s/</loc>
+    <lastmod>2024-11-07T23:49:11</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/11/03/deepsdf/</loc>
+    <lastmod>2025-01-12T04:12:01</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/11/03/isogcn/</loc>
+    <lastmod>2025-01-12T04:12:22</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/10/22/2422/</loc>
+    <lastmod>2025-01-22T14:12:34</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/10/18/gaussian-process-classification/</loc>
+    <lastmod>2025-01-12T04:15:21</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/10/17/numeric-and-categorical-data-handling/</loc>
+    <lastmod>2024-10-22T13:02:03</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/10/15/the-determinant-of-semi-positive-definite-matrix/</loc>
+    <lastmod>2024-10-22T13:42:18</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/10/11/image-kernel-nullity/</loc>
+    <lastmod>2024-10-11T23:53:44</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/10/09/qr-decomposition-for-linear-equations/</loc>
+    <lastmod>2025-01-12T04:16:03</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/10/06/is-tpesamler-really-using-tpe/</loc>
+    <lastmod>2025-01-12T04:16:18</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/10/06/raw-whitebait-bowl-in-aichi-japan/</loc>
+    <lastmod>2024-09-25T11:38:49</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/10/02/how-to-check-for-a-newly-external-hdd-in-linux-and-mount-it/</loc>
+    <lastmod>2024-10-01T13:05:12</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/10/01/how-turbo-defines-trust-region/</loc>
+    <lastmod>2025-01-12T04:21:24</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/10/01/multi-output-and-multi-task-in-gaussian-process/</loc>
+    <lastmod>2025-01-12T04:21:54</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/10/01/inducing-points-and-variational-inference-in-gaussian-process/</loc>
+    <lastmod>2025-01-22T14:09:32</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/10/01/you-will-understand-how-much-affection-to-baseball-japanese-have/</loc>
+    <lastmod>2024-09-25T11:08:17</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/09/29/hyakusaiji-temple/</loc>
+    <lastmod>2024-09-29T14:07:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/09/28/singletaskgp-vs-modellistgp-with-singletaskgps/</loc>
+    <lastmod>2025-01-12T04:19:28</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/09/27/sparse-axis-aligned-subspace-bayesian-optimization/</loc>
+    <lastmod>2025-01-12T04:22:11</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/09/26/shirakaba-international-ski-resort/</loc>
+    <lastmod>2024-09-27T02:45:49</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/09/25/log-normal-and-half-cauchy-distribution/</loc>
+    <lastmod>2024-09-25T13:44:41</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/09/24/grubhub-advertisement/</loc>
+    <lastmod>2024-09-24T13:17:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/09/20/the-feature-of-stochastic-variational-inference/</loc>
+    <lastmod>2025-01-12T04:23:04</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/09/20/het-meisje-met-de-parel/</loc>
+    <lastmod>2024-09-20T12:59:11</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/09/20/the-coincidence-of-a-book/</loc>
+    <lastmod>2024-09-20T12:59:30</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/09/10/coloring-scatter-points-on-graph-based-on-indeces-in-matplotlib/</loc>
+    <lastmod>2024-09-10T11:19:28</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/09/10/break-in-for-loop-in-bash/</loc>
+    <lastmod>2024-09-10T03:06:30</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/09/10/use-integer-number-on-axis-in-matplotlib/</loc>
+    <lastmod>2025-03-18T22:30:18</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/09/04/how-to-use-property-in-python/</loc>
+    <lastmod>2024-09-04T22:13:54</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://eye.kohei-kevin.com/2024/09/03/multi-objective-optimization-problem-in-botorch/</loc>
+    <lastmod>2024-09-14T00:32:23</lastmod>
+    <priority>0.8</priority>
+  </url>
+</urlset>
