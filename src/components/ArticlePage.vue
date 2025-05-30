@@ -32,6 +32,26 @@
     bottom: 0;
 }
 
+.modal-content {
+  font-size: 1rem;
+  line-height: 1.6;
+  word-break: break-word;
+  overflow-wrap: break-word;
+
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1rem auto;
+  }
+
+  .katex {
+    font-size: 1.2em;
+    overflow-x: auto;
+  }
+}
+
+
 </style>
 <template>
   <div class='q-pa-md' style='max-width: 30rem'>
@@ -104,16 +124,25 @@
             v-model="bars[index]!"
             transition-show="rotate"
             transition-hide="rotate"
-            style="width: 50rem"
           >
-            <q-card class="q-pa-lg">
+            <q-card
+              class="q-pa-lg"
+              style="max-width: 80vw; max-height: 80vh; overflow: auto;"
+            >
+              <q-btn
+                icon="close"
+                @click="closeDialog(index)"
+                round
+                color="negative"
+                size="lg"
+                class="z-top"
+                style="position: fixed; top: 8vh; right: 8vw; font-size: 1.5rem;"
+              />
               <q-card-section>
-                <div v-html="item.html_content"></div>
+                <div class="modal-content" v-html="item.html_content"></div>
               </q-card-section>
-              <q-card-actions align="right">
-                <q-btn flat label="Decline" color="primary" @click="closeDialog(index)" />
-              </q-card-actions>
             </q-card>
+
           </q-dialog>
         </q-card>
       </div>
