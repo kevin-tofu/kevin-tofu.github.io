@@ -91,7 +91,7 @@ const itemlist1 = [
   {title: 'Image Resizer', caption: 'check pixel coordinate', icon: 'image', to: {name: 'ImageResizer'}},
   {title: 'Text Length Counter', caption: '', icon: 'description', to: {name: 'TextlengthCounter'}},
   {title: 'WorldTime Checker', caption: '', icon: 'access_time', to: {name: 'WorldTime'}},
-  {title: '3D Viewer', caption: '', icon: '3d_rotation', to: { name: 'Viewer3D' } },
+  {title: '3D Polygon Viewer', caption: '', icon: '3d_rotation', to: { name: 'Viewer3D' } },
 ]
 
 export default defineComponent({
