@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <h2 class="q-mb-sm">3D Viewer</h2>
+    <h2 class="q-mb-sm">3D Polygon Viewer</h2>
     <Viewer3D />
   </div>
 </template>
