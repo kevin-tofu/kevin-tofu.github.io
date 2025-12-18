@@ -1,33 +1,35 @@
 <template>
     <div id="app">
-      <h1>Image Resizer</h1>
-      <input type="file" accept="image/*" @change="handleFileUpload" />
+      <h1>{{ t('tools.imageResizer.title') }}</h1>
+      <input type="file" accept="image/*" @change="handleFileUpload" :aria-label="t('tools.imageResizer.upload')" />
       <div v-if="originalImage" class="image-preview">
-        <h3>Original Image:</h3>
-        <img :src="originalImage" alt="Original Image" />
+        <h3>{{ t('tools.imageResizer.original') }}</h3>
+        <img :src="originalImage" :alt="t('tools.imageResizer.original')" />
       </div>
       <div v-if="resizedImage" class="image-preview">
-        <h3>Resized Image:</h3>
-        <img :src="resizedImage" alt="Resized Image" />
+        <h3>{{ t('tools.imageResizer.resized') }}</h3>
+        <img :src="resizedImage" :alt="t('tools.imageResizer.resized')" />
         <a :href="resizedImage" download="resized-image.jpg">
-          <button>Download Resized Image</button>
+          <button>{{ t('tools.imageResizer.download') }}</button>
         </a>
       </div>
       <div v-if="originalImage" class="resize-controls">
-        <label for="width">Width:</label>
+        <label for="width">{{ t('tools.imageResizer.width') }}</label>
         <input type="number" id="width" v-model="resizeWidth" />
-        <label for="height">Height:</label>
+        <label for="height">{{ t('tools.imageResizer.height') }}</label>
         <input type="number" id="height" v-model="resizeHeight" />
-        <button @click="resizeImage">Resize Image</button>
+        <button @click="resizeImage">{{ t('tools.imageResizer.resize') }}</button>
       </div>
     </div>
 </template>
 
 <script lang="ts">
   import { ref } from 'vue';
+  import { useI18n } from 'vue-i18n';
   
   export default {
     setup() {
+      const { t } = useI18n();
       const originalImage = ref<string | null>(null);
       const resizedImage = ref<string | null>(null);
       const resizeWidth = ref(300);
@@ -37,6 +39,10 @@
         const target = event.target as HTMLInputElement;
         const file = target.files?.[0];
         if (file) {
+          // 古いURLを解放してメモリリークを防止
+          if (originalImage.value) {
+            URL.revokeObjectURL(originalImage.value);
+          }
           originalImage.value = URL.createObjectURL(file);
         }
       };
@@ -62,6 +68,7 @@
       };
   
       return {
+        t,
         originalImage,
         resizedImage,
         resizeWidth,

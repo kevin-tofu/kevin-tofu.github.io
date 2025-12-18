@@ -24,7 +24,7 @@
         ></q-img>
         
         <q-card-section>
-          <div class='text-h6'>Profile</div>
+          <div class='text-h6'>{{ t('pages.index.profile') }}</div>
           <!-- <div class='text-subtitle2'>{{author}}</div> -->
         </q-card-section>
 
@@ -45,6 +45,7 @@
 // const config = require('')
 import { config } from '../config.js'
 import { defineComponent, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 export default defineComponent({
 
@@ -59,9 +60,10 @@ export default defineComponent({
   },
 
   setup () {
-
+    const { t } = useI18n()
     const url_image = ref('https://eye.kohei-kevin.com/wp-content/uploads/2023/01/IMG-8888.jpg')
     return {
+      t,
       author: config.AUTHOR,
       address: config.ADDRESS,
       description: config.DESCRIPTION,

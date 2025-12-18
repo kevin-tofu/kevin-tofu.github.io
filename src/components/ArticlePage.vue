@@ -12,6 +12,8 @@
     text-align: center;
     word-wrap: break-word;
     overflow: hidden;
+    position: relative;
+    padding-bottom: 3rem;
 }
 .image {
     width: 20rem;
@@ -30,6 +32,9 @@
 .child_botton {
     position: absolute;
     bottom: 0;
+    right: 0;
+    left: 0;
+    padding-bottom: 0.25rem;
 }
 
 .modal-content {
@@ -49,6 +54,22 @@
     font-size: 1.2em;
     overflow-x: auto;
   }
+}
+
+.card-subtitle {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-sentence {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 
@@ -102,12 +123,12 @@
             <div class='text-subtitle2'>{{item.date}}</div>
             <q-separator inset />
 
-            <q-card-section>
+            <q-card-section class="card-subtitle">
               {{ item.subtitle }}
             </q-card-section>
           </q-card-section>
 
-          <q-card-section class='q-pt-none'>
+          <q-card-section class='q-pt-none card-sentence'>
             {{ item.sentence }}
           </q-card-section>
                   
@@ -157,6 +178,8 @@
 import { config } from '../config.js'
 import { defineComponent, ref, onMounted, watch } from 'vue'
 import axios from 'axios'
+import katex from 'katex'
+import 'katex/dist/katex.min.css'
 
 type ArticleItem = {
   idx: number;
@@ -273,7 +296,7 @@ export default defineComponent({
             ? value.title.rendered.substring(0, 50) 
             : value.title.rendered,
         subtitle: value.excerpt.rendered.replace(/(<([^>]+)>)/gi, ''),
-        html_content: value.content.rendered,
+        html_content: renderMath(value.content.rendered),
         sentence: ''
       }))
     )
@@ -322,6 +345,65 @@ export default defineComponent({
         await get_post(selected.value); // ページ内容を再取得する
     }
 
+    function renderMath(raw: string) {
+      // WordPress shortcodes may be HTML-escaped; normalize brackets first
+      const normalizedRaw = raw
+        .replace(/&#91;/gi, '[')
+        .replace(/&#93;/gi, ']')
+        .replace(/&lsqb;/gi, '[')
+        .replace(/&rsqb;/gi, ']')
+
+      // ブロック -> インラインの順で置換
+      const wpBlockPattern = /<div[^>]*wp-block-katex[^>]*?>\s*<pre>([\s\S]*?)<\/pre>\s*<\/div>/gi
+      const shortcodePattern = /\[katex\]([\s\S]*?)\[\/katex\]/gi
+      const blockPatterns = [
+        { re: /\$\$([\s\S]*?)\$\$/g, displayMode: true },   // $$ ... $$
+        { re: /\\\[([\s\S]*?)\\\]/g, displayMode: true }    // \[ ... \]
+      ]
+      const inlinePatterns = [
+        { re: new RegExp('(^|[^$])\\$([^$\\n]+?)\\$', 'g'), displayMode: false, hasPrefix: true }, // $ ... $
+        { re: /\\\(([\s\S]*?)\\\)/g, displayMode: false, hasPrefix: false }      // \( ... \)
+      ]
+
+      let rendered = normalizedRaw.replace(wpBlockPattern, (_, expr: string) =>
+        katex.renderToString(expr.trim(), {
+          displayMode: true,
+          throwOnError: false,
+          output: 'html'
+        })
+      )
+
+      rendered = rendered.replace(shortcodePattern, (_, expr: string) =>
+        katex.renderToString(expr.trim(), {
+          displayMode: true,
+          throwOnError: false,
+          output: 'html'
+        })
+      )
+      for (const { re, displayMode } of blockPatterns) {
+        rendered = rendered.replace(re, (_, expr: string) =>
+          katex.renderToString(expr.trim(), {
+            displayMode,
+            throwOnError: false,
+            output: 'html'
+          })
+        )
+      }
+
+      for (const { re, displayMode, hasPrefix } of inlinePatterns) {
+        rendered = rendered.replace(re, (...args) => {
+          const expr = hasPrefix ? args[2] : args[1]
+          const prefix = hasPrefix ? args[1] : ''
+          return `${prefix}${katex.renderToString(expr.trim(), {
+            displayMode,
+            throwOnError: false,
+            output: 'html'
+          })}`
+        })
+      }
+
+      return rendered
+    }
 
     return {
         author: config.AUTHOR,

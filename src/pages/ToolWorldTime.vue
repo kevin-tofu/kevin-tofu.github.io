@@ -2,7 +2,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-page class="main-page q-pa-md">
-      <span class="header-title">World Time</span>
+      <span class="header-title">{{ t('tools.worldTime.title') }}</span>
       <q-card flat class="bg-card q-pa-lg">
         <div class="row q-gutter-md justify-center">
           <div
@@ -20,6 +20,7 @@
 
 
 <script lang="ts">
+import { useI18n } from 'vue-i18n';
 import TimeCard from '../components/TimeCard.vue';
 
 export default {
@@ -27,6 +28,7 @@ export default {
     TimeCard,
   },
   setup() {
+    const { t } = useI18n();
     const cities = [
       { name: 'New York', timezoneOffset: -5 },
       { name: 'London', timezoneOffset: 0 },
@@ -39,7 +41,7 @@ export default {
       { name: 'Brussels', timezoneOffset: 1 },
     ];
 
-    return { cities };
+    return { cities, t };
   },
 };
 </script>

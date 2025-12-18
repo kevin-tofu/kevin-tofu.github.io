@@ -6,7 +6,7 @@
         outlined 
         label-color='orange' 
         v-model='model' 
-        label='Upload Image'
+        :label='t("tools.pixelViewer.upload")'
         @update:model-value='event_file'
       >
         <template v-slot:append>
@@ -31,15 +31,17 @@
 
 <script lang="ts">
 import { defineComponent, ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 export default defineComponent({
   name: 'PixelViewer',
 
   setup () {
+    const { t } = useI18n()
     const model = ref<File | null>(null);
     const canvas = ref<HTMLCanvasElement | null>(null);
     const urlmodel = ref<string | null>(null)
-    const message = ref('Move your cursor over the image to see pixel information.')
+    const message = ref(t('tools.pixelViewer.prompt'))
     const image = new Image()
     let ctx: CanvasRenderingContext2D | null = null;
     
@@ -48,6 +50,10 @@ export default defineComponent({
     }
 
     watch(model, (model_new) => {
+      // 古いURLを解放してメモリリークを防止
+      if (urlmodel.value) {
+        URL.revokeObjectURL(urlmodel.value);
+      }
       if (model_new) {
         urlmodel.value = URL.createObjectURL(model_new);
         loadImage();
@@ -107,7 +113,13 @@ export default defineComponent({
       const pixel = ctx.getImageData(x, y, 1, 1).data
 
       // ピクセル情報を表示
-      message.value = `x: ${x}, y: ${y}, RGB: (${pixel[0]}, ${pixel[1]}, ${pixel[2]})`
+      message.value = t('tools.pixelViewer.message', {
+        x: Math.round(x),
+        y: Math.round(y),
+        r: pixel[0],
+        g: pixel[1],
+        b: pixel[2]
+      })
 
       // 四角形でピクセル位置を表示
       const boxSize = 10  // 四角形のサイズ
@@ -121,6 +133,7 @@ export default defineComponent({
       canvas,
       urlmodel,
       message,
+      t,
       event_cursor,
       event_file
     }

@@ -22,9 +22,13 @@ declare module 'vue-i18n' {
 /* eslint-enable @typescript-eslint/no-empty-object-type */
 
 export default defineBoot(({ app }) => {
+  const savedLocale = (typeof localStorage !== 'undefined' && localStorage.getItem('locale')) || undefined;
+  const initialLocale = savedLocale === 'ja-JP' ? 'ja-JP' : 'en-US';
+
   const i18n = createI18n<{ message: MessageSchema }, MessageLanguages>({
-    locale: 'en-US',
+    locale: initialLocale,
     legacy: false,
+    fallbackLocale: 'en-US',
     messages,
   });
 

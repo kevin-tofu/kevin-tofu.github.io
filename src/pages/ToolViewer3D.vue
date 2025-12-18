@@ -10,16 +10,7 @@ import { defineComponent } from 'vue'
 import Viewer3D from '../components/Viewer3D.vue'
 
 export default defineComponent({
-  name: 'ViewerHost',
+  name: 'ToolViewer3D',
   components: { Viewer3D },
 })
 </script>
-
-<style scoped>
-.page {
-  width: 80%;
-  /* height は指定しない（親の q-page に任せる） */
-  padding: 8px;
-  box-sizing: border-box;
-}
-</style>

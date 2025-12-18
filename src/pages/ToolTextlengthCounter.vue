@@ -1,21 +1,24 @@
 <template>
     <div>
-      <textarea v-model="text" placeholder="Input Text Here..."></textarea>
-      <p>Text Length: {{ textLength }}</p>
+      <textarea v-model="text" :placeholder="t('tools.textCounter.placeholder')"></textarea>
+      <p>{{ t('tools.textCounter.length', { count: textLength }) }}</p>
     </div>
 </template>
   
 <script lang="ts">
   import { defineComponent, ref, computed } from 'vue';
+  import { useI18n } from 'vue-i18n';
   
   export default defineComponent({
     name: 'TextCounter',
     setup() {
+      const { t } = useI18n();
       const text = ref('');
       const textLength = computed(() => text.value.length);
       return {
         text,
-        textLength
+        textLength,
+        t
       };
     }
   });
