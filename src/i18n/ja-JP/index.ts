@@ -85,7 +85,12 @@ export default {
       right: '右画像:',
       combined: '連結画像:',
       save: '画像を保存',
-      hint: '2枚の画像をアップロードすると横方向に連結します。'
+      hint: '2枚の画像をアップロードすると横方向に連結します。',
+      colorMode: {
+        label: 'カラーモード',
+        rgb: 'RGB (デフォルト)',
+        grayscale: 'グレースケール'
+      }
     },
     pixelViewer: {
       upload: '画像をアップロード',

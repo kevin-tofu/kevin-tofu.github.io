@@ -85,7 +85,12 @@ export default {
       right: 'Right Image:',
       combined: 'Connected Image:',
       save: 'Save Image',
-      hint: 'Upload two images to connect them horizontally.'
+      hint: 'Upload two images to connect them horizontally.',
+      colorMode: {
+        label: 'Color Mode',
+        rgb: 'RGB (default)',
+        grayscale: 'Grayscale'
+      }
     },
     pixelViewer: {
       upload: 'Upload Image',
