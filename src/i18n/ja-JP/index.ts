@@ -25,6 +25,7 @@ export default {
       about: { title: 'About', caption: '概要' },
       pixelViewer: { title: 'ピクセルビューア', caption: 'ピクセル座標確認' },
       imageResizer: { title: '画像リサイズ', caption: '手早く縮小/拡大' },
+      imageConnector: { title: '画像連結', caption: '2枚を横に連結' },
       textCounter: { title: '文字数カウンター', caption: '文字数を数える' },
       worldTime: { title: '世界時計', caption: '各地の現在時刻' },
       viewer3d: { title: '3Dビューア', caption: '3Dモデルを確認' }
@@ -75,6 +76,16 @@ export default {
       width: '幅:',
       height: '高さ:',
       resize: 'リサイズ実行'
+    },
+    imageConnector: {
+      title: '画像連結',
+      uploadLeft: '左の画像をアップロード',
+      uploadRight: '右の画像をアップロード',
+      left: '左画像:',
+      right: '右画像:',
+      combined: '連結画像:',
+      save: '画像を保存',
+      hint: '2枚の画像をアップロードすると横方向に連結します。'
     },
     pixelViewer: {
       upload: '画像をアップロード',

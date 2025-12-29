@@ -18,6 +18,7 @@ const routes: RouteRecordRaw[] = [
       { path: 'articles-culture', name: 'ArticleCulture', component: () => import('src/pages/ArticleCulture.vue') },
       { path: 'articles-japan', name: 'ArticleJapan', component: () => import('src/pages/ArticleJapan.vue') },
       { path: 'image resizer', name: 'ImageResizer', component: () => import('src/pages/ToolImageResizer.vue') },
+      { path: 'image-connector', name: 'ImageConnector', component: () => import('src/pages/ToolImageConnector.vue') },
       { path: 'aboutpage', name: 'AboutPage', component: () => import('src/pages/AboutPage.vue') },
       { path: 'world-time', name: 'WorldTime', component: () => import('src/pages/ToolWorldTime.vue') },
       { path: '3d-viewer', name: 'Viewer3D', component: () => import('pages/ToolViewer3D.vue') },

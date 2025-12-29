@@ -105,6 +105,7 @@ const itemlist0 = [
 const itemlist1 = [
   {titleKey: 'layout.nav.pixelViewer.title', captionKey: 'layout.nav.pixelViewer.caption', icon: 'image', to: {name: 'PixelViewer'}},
   {titleKey: 'layout.nav.imageResizer.title', captionKey: 'layout.nav.imageResizer.caption', icon: 'image', to: {name: 'ImageResizer'}},
+  {titleKey: 'layout.nav.imageConnector.title', captionKey: 'layout.nav.imageConnector.caption', icon: 'photo_library', to: {name: 'ImageConnector'}},
   {titleKey: 'layout.nav.textCounter.title', captionKey: 'layout.nav.textCounter.caption', icon: 'description', to: {name: 'TextlengthCounter'}},
   {titleKey: 'layout.nav.worldTime.title', captionKey: 'layout.nav.worldTime.caption', icon: 'access_time', to: {name: 'WorldTime'}},
   {titleKey: 'layout.nav.viewer3d.title', captionKey: 'layout.nav.viewer3d.caption', icon: '3d_rotation', to: { name: 'Viewer3D' } },

@@ -25,6 +25,7 @@ export default {
       about: { title: 'About', caption: 'about' },
       pixelViewer: { title: 'Pixel Viewer', caption: 'Check pixel coordinate' },
       imageResizer: { title: 'Image Resizer', caption: 'Resize images quickly' },
+      imageConnector: { title: 'Image Connector', caption: 'Connect two images' },
       textCounter: { title: 'Text Length Counter', caption: 'Count characters' },
       worldTime: { title: 'WorldTime Checker', caption: 'Current times' },
       viewer3d: { title: '3D Viewer', caption: 'Inspect 3D models' }
@@ -75,6 +76,16 @@ export default {
       width: 'Width:',
       height: 'Height:',
       resize: 'Resize Image'
+    },
+    imageConnector: {
+      title: 'Image Connector',
+      uploadLeft: 'Upload Left Image',
+      uploadRight: 'Upload Right Image',
+      left: 'Left Image:',
+      right: 'Right Image:',
+      combined: 'Connected Image:',
+      save: 'Save Image',
+      hint: 'Upload two images to connect them horizontally.'
     },
     pixelViewer: {
       upload: 'Upload Image',
