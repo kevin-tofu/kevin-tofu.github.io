@@ -75,7 +75,12 @@ export default {
       download: 'リサイズ画像をダウンロード',
       width: '幅:',
       height: '高さ:',
-      resize: 'リサイズ実行'
+      scale: '倍率 (%):',
+      noFile: 'ファイル未選択',
+      resize: 'リサイズ実行',
+      dimensions: 'サイズ: {width} x {height}px',
+      fileSize: 'ファイルサイズ: {size}',
+      resizedFileSize: 'リサイズ後の推定サイズ: {size}'
     },
     imageConnector: {
       title: '画像連結',
@@ -86,6 +91,7 @@ export default {
       combined: '連結画像:',
       save: '画像を保存',
       hint: '2枚の画像をアップロードすると横方向に連結します。',
+      noFile: 'ファイル未選択',
       colorMode: {
         label: 'カラーモード',
         rgb: 'RGB (デフォルト)',

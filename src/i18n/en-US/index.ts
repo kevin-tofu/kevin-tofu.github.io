@@ -75,7 +75,12 @@ export default {
       download: 'Download Resized Image',
       width: 'Width:',
       height: 'Height:',
-      resize: 'Resize Image'
+      scale: 'Scale (%):',
+      noFile: 'No file selected',
+      resize: 'Resize Image',
+      dimensions: 'Dimensions: {width} x {height}px',
+      fileSize: 'File size: {size}',
+      resizedFileSize: 'Estimated size after resize: {size}'
     },
     imageConnector: {
       title: 'Image Connector',
@@ -86,6 +91,7 @@ export default {
       combined: 'Connected Image:',
       save: 'Save Image',
       hint: 'Upload two images to connect them horizontally.',
+      noFile: 'No file selected',
       colorMode: {
         label: 'Color Mode',
         rgb: 'RGB (default)',

@@ -1,5 +1,10 @@
 import { defineBoot } from '#q-app/wrappers';
 import { createI18n } from 'vue-i18n';
+import { watch } from 'vue';
+import type { Ref } from 'vue';
+import { Lang } from 'quasar';
+import langEnUS from 'quasar/lang/en-US';
+import langJa from 'quasar/lang/ja';
 
 import messages from 'src/i18n';
 
@@ -24,6 +29,10 @@ declare module 'vue-i18n' {
 export default defineBoot(({ app }) => {
   const savedLocale = (typeof localStorage !== 'undefined' && localStorage.getItem('locale')) || undefined;
   const initialLocale = savedLocale === 'ja-JP' ? 'ja-JP' : 'en-US';
+  const quasarLangMap: Record<MessageLanguages, typeof langEnUS> = {
+    'en-US': langEnUS,
+    'ja-JP': langJa
+  };
 
   const i18n = createI18n<{ message: MessageSchema }, MessageLanguages>({
     locale: initialLocale,
@@ -34,4 +43,12 @@ export default defineBoot(({ app }) => {
 
   // Set i18n instance on app
   app.use(i18n);
+
+  Lang.set(quasarLangMap[initialLocale]);
+  const localeRef = i18n.global.locale as unknown as Ref<MessageLanguages>;
+
+  watch(localeRef, (newLocale) => {
+    const localeKey = newLocale || 'en-US';
+    Lang.set(quasarLangMap[localeKey] || langEnUS);
+  });
 });

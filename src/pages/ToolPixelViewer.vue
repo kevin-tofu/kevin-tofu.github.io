@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch } from 'vue'
+import { defineComponent, ref, watch, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 export default defineComponent({
@@ -41,7 +41,19 @@ export default defineComponent({
     const model = ref<File | null>(null);
     const canvas = ref<HTMLCanvasElement | null>(null);
     const urlmodel = ref<string | null>(null)
-    const message = ref(t('tools.pixelViewer.prompt'))
+    const cursorInfo = ref<{ x: number; y: number; r: number; g: number; b: number } | null>(null)
+    const message = computed(() => {
+      if (!cursorInfo.value) {
+        return t('tools.pixelViewer.prompt')
+      }
+      return t('tools.pixelViewer.message', {
+        x: cursorInfo.value.x,
+        y: cursorInfo.value.y,
+        r: cursorInfo.value.r,
+        g: cursorInfo.value.g,
+        b: cursorInfo.value.b
+      })
+    })
     const image = new Image()
     let ctx: CanvasRenderingContext2D | null = null;
     
@@ -54,6 +66,7 @@ export default defineComponent({
       if (urlmodel.value) {
         URL.revokeObjectURL(urlmodel.value);
       }
+      cursorInfo.value = null;
       if (model_new) {
         urlmodel.value = URL.createObjectURL(model_new);
         loadImage();
@@ -113,13 +126,13 @@ export default defineComponent({
       const pixel = ctx.getImageData(x, y, 1, 1).data
 
       // ピクセル情報を表示
-      message.value = t('tools.pixelViewer.message', {
+      cursorInfo.value = {
         x: Math.round(x),
         y: Math.round(y),
-        r: pixel[0],
-        g: pixel[1],
-        b: pixel[2]
-      })
+        r: pixel[0] ?? 0,
+        g: pixel[1] ?? 0,
+        b: pixel[2] ?? 0
+      }
 
       // 四角形でピクセル位置を表示
       const boxSize = 10  // 四角形のサイズ
