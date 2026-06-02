@@ -80,7 +80,10 @@ export default {
       resize: 'リサイズ実行',
       dimensions: 'サイズ: {width} x {height}px',
       fileSize: 'ファイルサイズ: {size}',
-      resizedFileSize: 'リサイズ後の推定サイズ: {size}'
+      fileSizeWithCount: '{count}件の合計ファイルサイズ: {size}',
+      resizedFileSize: 'リサイズ後の推定サイズ: {size}',
+      resizedFileSizeWithCount: 'リサイズ後の推定合計サイズ ({count}件): {size}',
+      downloadAll: '{count}件のリサイズ画像をダウンロード'
     },
     imageConnector: {
       title: '画像連結',

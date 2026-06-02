@@ -80,7 +80,10 @@ export default {
       resize: 'Resize Image',
       dimensions: 'Dimensions: {width} x {height}px',
       fileSize: 'File size: {size}',
-      resizedFileSize: 'Estimated size after resize: {size}'
+      fileSizeWithCount: 'Total file size ({count} files): {size}',
+      resizedFileSize: 'Estimated size after resize: {size}',
+      resizedFileSizeWithCount: 'Estimated total size after resize ({count} files): {size}',
+      downloadAll: 'Download {count} Resized Images'
     },
     imageConnector: {
       title: 'Image Connector',
