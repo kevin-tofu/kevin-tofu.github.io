@@ -56,6 +56,7 @@
 </template>
 
 <script lang="ts">
+  import pica from 'pica';
   import { computed, ref } from 'vue';
   import { useI18n } from 'vue-i18n';
 
@@ -87,6 +88,9 @@
       const currentPreviewIndex = ref(0);
       const previewFrameWidth = 520;
       const previewFrameHeight = 320;
+      const imageResizer = pica({ features: ['js', 'wasm', 'ww'] });
+      const jpegMimeType = 'image/jpeg';
+      const jpegQuality = 0.92;
 
       const currentOriginalImage = computed(() => originalImages.value[currentPreviewIndex.value] ?? null);
       const currentResizedImage = computed(() => resizedImages.value[currentPreviewIndex.value] ?? null);
@@ -119,17 +123,6 @@
         }
         const digits = value >= 10 || unitIndex === 0 ? 0 : 1;
         return `${value.toFixed(digits)} ${units[unitIndex]}`;
-      };
-
-      const dataUrlToUint8Array = (dataUrl: string) => {
-        const commaIndex = dataUrl.indexOf(',');
-        if (commaIndex === -1) return new Uint8Array();
-        const binary = atob(dataUrl.slice(commaIndex + 1));
-        const bytes = new Uint8Array(binary.length);
-        for (let i = 0; i < binary.length; i += 1) {
-          bytes[i] = binary.charCodeAt(i);
-        }
-        return bytes;
       };
 
       const extractExifSegments = (bytes: Uint8Array) => {
@@ -435,24 +428,44 @@
       };
 
       const resizeImage = (image: OriginalImageInfo) =>
-        new Promise<ResizedImageInfo>((resolve) => {
+        new Promise<ResizedImageInfo>((resolve, reject) => {
           const img = new Image();
-          img.onload = () => {
+          img.onload = async () => {
             const target = getTargetDimensions(image.width, image.height);
             const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
+            const resizedCanvas = document.createElement('canvas');
 
-            canvas.width = target.width;
-            canvas.height = target.height;
-            if (ctx) {
-              ctx.drawImage(img, 0, 0, target.width, target.height);
-              const resizedDataUrl = canvas.toDataURL('image/jpeg');
-              const resizedBytes = dataUrlToUint8Array(resizedDataUrl);
+            canvas.width = image.width;
+            canvas.height = image.height;
+            resizedCanvas.width = target.width;
+            resizedCanvas.height = target.height;
+
+            const ctx = canvas.getContext('2d');
+            if (!ctx) {
+              reject(new Error('Canvas 2D context is not available.'));
+              return;
+            }
+
+            ctx.drawImage(img, 0, 0, image.width, image.height);
+
+            try {
+              await imageResizer.resize(canvas, resizedCanvas, {
+                filter: 'mks2013',
+                unsharpAmount: 80,
+                unsharpRadius: 0.6,
+                unsharpThreshold: 2
+              });
+              const resizedBlobWithoutExif = await imageResizer.toBlob(
+                resizedCanvas,
+                jpegMimeType,
+                jpegQuality
+              );
+              const resizedBytes = new Uint8Array(await resizedBlobWithoutExif.arrayBuffer());
               const resizedBytesWithExif = copyExifSegments(
                 resizedBytes,
                 normalizeExifSegmentsOrientation(image.exifSegments)
               );
-              const resizedBlob = new Blob([resizedBytesWithExif], { type: 'image/jpeg' });
+              const resizedBlob = new Blob([resizedBytesWithExif], { type: jpegMimeType });
 
               resolve({
                 url: URL.createObjectURL(resizedBlob),
@@ -461,8 +474,16 @@
                 height: target.height,
                 fileSizeBytes: resizedBlob.size
               });
+            } catch (error) {
+              reject(error instanceof Error ? error : new Error(String(error)));
+            } finally {
+              canvas.width = 0;
+              canvas.height = 0;
+              resizedCanvas.width = 0;
+              resizedCanvas.height = 0;
             }
           };
+          img.onerror = () => reject(new Error(`Failed to load image: ${image.file.name}`));
           img.src = image.url;
         });
 
