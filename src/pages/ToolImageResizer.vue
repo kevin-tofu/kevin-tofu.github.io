@@ -11,15 +11,29 @@
         :no-files-label="t('tools.imageResizer.noFile')"
         @update:model-value="handleFileUpload"
       />
+      <div v-if="hasMultipleImages" class="preview-navigation">
+        <button :disabled="!canGoPrevious" @click="goPreviousImage">
+          {{ t('tools.imageResizer.previous') }}
+        </button>
+        <span class="preview-counter">{{ previewCounterLabel }}</span>
+        <button :disabled="!canGoNext" @click="goNextImage">
+          {{ t('tools.imageResizer.next') }}
+        </button>
+      </div>
       <div v-if="originalImage" class="image-preview">
         <h3>{{ t('tools.imageResizer.original') }}</h3>
-        <img :src="originalImage" :alt="t('tools.imageResizer.original')" />
+        <p v-if="previewFileName" class="image-meta">{{ previewFileName }}</p>
+        <div class="thumbnail-frame">
+          <img :src="originalImage" :alt="t('tools.imageResizer.original')" />
+        </div>
         <p v-if="originalDimensionsLabel" class="image-meta">{{ originalDimensionsLabel }}</p>
         <p v-if="originalFileSizeLabel" class="image-meta">{{ originalFileSizeLabel }}</p>
       </div>
       <div v-if="resizedImage" class="image-preview">
         <h3>{{ t('tools.imageResizer.resized') }}</h3>
-        <img :src="resizedImage" :alt="t('tools.imageResizer.resized')" />
+        <div class="thumbnail-frame">
+          <img :src="resizedImage" :alt="t('tools.imageResizer.resized')" />
+        </div>
         <p v-if="resizedDimensionsLabel" class="image-meta">{{ resizedDimensionsLabel }}</p>
         <p v-if="resizedFileSizeLabel" class="image-meta">{{ resizedFileSizeLabel }}</p>
         <button @click="downloadResizedImages">{{ downloadButtonLabel }}</button>
@@ -28,6 +42,7 @@
         <label for="scale">{{ t('tools.imageResizer.scale') }}</label>
         <input type="number" id="scale" v-model="scalePercent" min="1" step="1" />
         <button :disabled="isResizing" @click="resizeImages">{{ t('tools.imageResizer.resize') }}</button>
+        <p v-if="resizeEstimateLabel" class="image-meta resize-estimate">{{ resizeEstimateLabel }}</p>
       </div>
     </div>
 </template>
@@ -61,9 +76,15 @@
       const resizedImages = ref<ResizedImageInfo[]>([]);
       const scalePercent = ref(100);
       const isResizing = ref(false);
+      const currentPreviewIndex = ref(0);
 
-      const originalImage = computed(() => originalImages.value[0]?.url ?? null);
-      const resizedImage = computed(() => resizedImages.value[0]?.url ?? null);
+      const currentOriginalImage = computed(() => originalImages.value[currentPreviewIndex.value] ?? null);
+      const currentResizedImage = computed(() => resizedImages.value[currentPreviewIndex.value] ?? null);
+      const originalImage = computed(() => currentOriginalImage.value?.url ?? null);
+      const resizedImage = computed(() => currentResizedImage.value?.url ?? null);
+      const hasMultipleImages = computed(() => originalImages.value.length > 1);
+      const canGoPrevious = computed(() => currentPreviewIndex.value > 0);
+      const canGoNext = computed(() => currentPreviewIndex.value < originalImages.value.length - 1);
 
       const buildResizedFileName = (originalName: string | undefined) => {
         if (!originalName) return 'resized-image.jpg';
@@ -210,20 +231,20 @@
       };
 
       const originalDimensionsLabel = computed(() => {
-        const firstImage = originalImages.value[0];
-        if (!firstImage) return null;
+        const image = currentOriginalImage.value;
+        if (!image) return null;
         return t('tools.imageResizer.dimensions', {
-          width: firstImage.width,
-          height: firstImage.height
+          width: image.width,
+          height: image.height
         });
       });
 
       const resizedDimensionsLabel = computed(() => {
-        const firstImage = resizedImages.value[0];
-        if (!firstImage) return null;
+        const image = currentResizedImage.value;
+        if (!image) return null;
         return t('tools.imageResizer.dimensions', {
-          width: firstImage.width,
-          height: firstImage.height
+          width: image.width,
+          height: image.height
         });
       });
 
@@ -253,6 +274,28 @@
         if (resizedImages.value.length <= 1) return t('tools.imageResizer.download');
         return t('tools.imageResizer.downloadAll', { count: resizedImages.value.length });
       });
+
+      const previewCounterLabel = computed(() => {
+        return t('tools.imageResizer.previewCounter', {
+          current: currentPreviewIndex.value + 1,
+          total: originalImages.value.length
+        });
+      });
+
+      const previewFileName = computed(() => currentOriginalImage.value?.file.name ?? null);
+
+      const resizeEstimateLabel = computed(() => {
+        const image = currentOriginalImage.value;
+        if (!image) return null;
+        const target = getTargetDimensions(image.width, image.height);
+        return t('tools.imageResizer.resizeEstimate', {
+          scale: Math.max(1, scalePercent.value),
+          fromWidth: image.width,
+          fromHeight: image.height,
+          toWidth: target.width,
+          toHeight: target.height
+        });
+      });
   
       const revokeImageUrls = () => {
         originalImages.value.forEach((image) => URL.revokeObjectURL(image.url));
@@ -268,12 +311,14 @@
         if (nextFiles.length === 0) {
           originalImages.value = [];
           resizedImages.value = [];
+          currentPreviewIndex.value = 0;
           scalePercent.value = 100;
           return;
         }
 
         originalImages.value = await Promise.all(nextFiles.map(loadOriginalImage));
         resizedImages.value = [];
+        currentPreviewIndex.value = 0;
         scalePercent.value = 100;
       };
 
@@ -331,6 +376,17 @@
         });
       };
 
+      const goPreviousImage = () => {
+        currentPreviewIndex.value = Math.max(0, currentPreviewIndex.value - 1);
+      };
+
+      const goNextImage = () => {
+        currentPreviewIndex.value = Math.min(
+          originalImages.value.length - 1,
+          currentPreviewIndex.value + 1
+        );
+      };
+
       return {
         t,
         locale,
@@ -343,10 +399,18 @@
         originalFileSizeLabel,
         resizedFileSizeLabel,
         downloadButtonLabel,
+        previewCounterLabel,
+        previewFileName,
+        resizeEstimateLabel,
+        hasMultipleImages,
+        canGoPrevious,
+        canGoNext,
         isResizing,
         handleFileUpload,
         resizeImages,
         downloadResizedImages,
+        goPreviousImage,
+        goNextImage,
       };
     },
   };
@@ -358,13 +422,38 @@
     text-align: center;
     margin-top: 20px;
   }
-  .image-preview img {
+  .thumbnail-frame {
+    align-items: center;
+    background: #f4f4f4;
+    border: 1px solid #d6d6d6;
+    display: flex;
+    height: 320px;
+    justify-content: center;
+    margin: 10px auto 0;
+    max-width: min(100%, 520px);
+    overflow: hidden;
+  }
+  .thumbnail-frame img {
+    height: 100%;
     max-width: 100%;
-    height: auto;
-    margin-top: 10px;
+    object-fit: contain;
+    width: 100%;
   }
   .resize-controls {
     margin-top: 20px;
+  }
+  .resize-estimate {
+    font-weight: 600;
+  }
+  .preview-navigation {
+    align-items: center;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 16px;
+  }
+  .preview-counter {
+    min-width: 72px;
   }
   .resize-controls label,
   .resize-controls input {

@@ -83,7 +83,11 @@ export default {
       fileSizeWithCount: 'Total file size ({count} files): {size}',
       resizedFileSize: 'Estimated size after resize: {size}',
       resizedFileSizeWithCount: 'Estimated total size after resize ({count} files): {size}',
-      downloadAll: 'Download {count} Resized Images'
+      downloadAll: 'Download {count} Resized Images',
+      previous: 'Previous',
+      next: 'Next',
+      previewCounter: '{current} / {total}',
+      resizeEstimate: 'Resize from {fromWidth} x {fromHeight}px to {toWidth} x {toHeight}px at {scale}%'
     },
     imageConnector: {
       title: 'Image Connector',

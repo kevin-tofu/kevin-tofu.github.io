@@ -83,7 +83,11 @@ export default {
       fileSizeWithCount: '{count}件の合計ファイルサイズ: {size}',
       resizedFileSize: 'リサイズ後の推定サイズ: {size}',
       resizedFileSizeWithCount: 'リサイズ後の推定合計サイズ ({count}件): {size}',
-      downloadAll: '{count}件のリサイズ画像をダウンロード'
+      downloadAll: '{count}件のリサイズ画像をダウンロード',
+      previous: '前へ',
+      next: '次へ',
+      previewCounter: '{current} / {total}',
+      resizeEstimate: '{scale}% で {fromWidth} x {fromHeight}px から {toWidth} x {toHeight}px にリサイズ'
     },
     imageConnector: {
       title: '画像連結',
