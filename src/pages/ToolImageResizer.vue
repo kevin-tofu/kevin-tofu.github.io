@@ -24,7 +24,11 @@
         <h3>{{ t('tools.imageResizer.original') }}</h3>
         <p v-if="previewFileName" class="image-meta">{{ previewFileName }}</p>
         <div class="thumbnail-frame">
-          <img :src="originalImage" :alt="t('tools.imageResizer.original')" />
+          <img
+            :src="originalImage"
+            :alt="t('tools.imageResizer.original')"
+            :style="originalPreviewImageStyle"
+          />
         </div>
         <p v-if="originalDimensionsLabel" class="image-meta">{{ originalDimensionsLabel }}</p>
         <p v-if="originalFileSizeLabel" class="image-meta">{{ originalFileSizeLabel }}</p>
@@ -32,7 +36,11 @@
       <div v-if="resizedImage" class="image-preview">
         <h3>{{ t('tools.imageResizer.resized') }}</h3>
         <div class="thumbnail-frame">
-          <img :src="resizedImage" :alt="t('tools.imageResizer.resized')" />
+          <img
+            :src="resizedImage"
+            :alt="t('tools.imageResizer.resized')"
+            :style="resizedPreviewImageStyle"
+          />
         </div>
         <p v-if="resizedDimensionsLabel" class="image-meta">{{ resizedDimensionsLabel }}</p>
         <p v-if="resizedFileSizeLabel" class="image-meta">{{ resizedFileSizeLabel }}</p>
@@ -77,6 +85,8 @@
       const scalePercent = ref(100);
       const isResizing = ref(false);
       const currentPreviewIndex = ref(0);
+      const previewFrameWidth = 520;
+      const previewFrameHeight = 320;
 
       const currentOriginalImage = computed(() => originalImages.value[currentPreviewIndex.value] ?? null);
       const currentResizedImage = computed(() => resizedImages.value[currentPreviewIndex.value] ?? null);
@@ -193,6 +203,72 @@
         return output;
       };
 
+      const normalizeExifOrientation = (segment: Uint8Array) => {
+        const exifHeaderOffset = 4;
+        const tiffOffset = exifHeaderOffset + 6;
+        if (
+          segment.length < tiffOffset + 8 ||
+          segment[exifHeaderOffset] !== 0x45 ||
+          segment[exifHeaderOffset + 1] !== 0x78 ||
+          segment[exifHeaderOffset + 2] !== 0x69 ||
+          segment[exifHeaderOffset + 3] !== 0x66
+        ) {
+          return segment;
+        }
+
+        const littleEndian =
+          segment[tiffOffset] === 0x49 && segment[tiffOffset + 1] === 0x49;
+        const bigEndian =
+          segment[tiffOffset] === 0x4d && segment[tiffOffset + 1] === 0x4d;
+        if (!littleEndian && !bigEndian) return segment;
+
+        const readUint16 = (offset: number) =>
+          littleEndian
+            ? (segment[offset] ?? 0) + ((segment[offset + 1] ?? 0) << 8)
+            : ((segment[offset] ?? 0) << 8) + (segment[offset + 1] ?? 0);
+
+        const readUint32 = (offset: number) =>
+          littleEndian
+            ? (segment[offset] ?? 0) +
+              ((segment[offset + 1] ?? 0) << 8) +
+              ((segment[offset + 2] ?? 0) << 16) +
+              ((segment[offset + 3] ?? 0) << 24)
+            : ((segment[offset] ?? 0) << 24) +
+              ((segment[offset + 1] ?? 0) << 16) +
+              ((segment[offset + 2] ?? 0) << 8) +
+              (segment[offset + 3] ?? 0);
+
+        const ifdOffset = readUint32(tiffOffset + 4);
+        const ifdStart = tiffOffset + ifdOffset;
+        if (ifdStart + 2 > segment.length) return segment;
+
+        const entryCount = readUint16(ifdStart);
+        const normalized = segment.slice();
+        for (let i = 0; i < entryCount; i += 1) {
+          const entryOffset = ifdStart + 2 + i * 12;
+          if (entryOffset + 12 > normalized.length) break;
+
+          const tag = readUint16(entryOffset);
+          if (tag !== 0x0112) continue;
+
+          const valueOffset = entryOffset + 8;
+          if (littleEndian) {
+            normalized[valueOffset] = 1;
+            normalized[valueOffset + 1] = 0;
+          } else {
+            normalized[valueOffset] = 0;
+            normalized[valueOffset + 1] = 1;
+          }
+          return normalized;
+        }
+
+        return segment;
+      };
+
+      const normalizeExifSegmentsOrientation = (segments: Uint8Array[]) => {
+        return segments.map(normalizeExifOrientation);
+      };
+
       const getTargetDimensions = (width: number, height: number) => {
         const scale = Math.max(1, scalePercent.value) / 100;
         return {
@@ -200,6 +276,42 @@
           height: Math.max(1, Math.round(height * scale))
         };
       };
+
+      const buildPreviewImageStyle = (width: number, height: number) => ({
+        width: `${width}px`,
+        height: `${height}px`
+      });
+
+      const previewDisplayScale = computed(() => {
+        const image = currentOriginalImage.value;
+        if (!image) return 1;
+
+        const resizedImageInfo = currentResizedImage.value;
+        const referenceWidth = Math.max(image.width, resizedImageInfo?.width ?? image.width);
+        const referenceHeight = Math.max(image.height, resizedImageInfo?.height ?? image.height);
+
+        return Math.min(previewFrameWidth / referenceWidth, previewFrameHeight / referenceHeight, 1);
+      });
+
+      const originalPreviewImageStyle = computed(() => {
+        const image = currentOriginalImage.value;
+        if (!image) return {};
+
+        return buildPreviewImageStyle(
+          Math.max(1, Math.round(image.width * previewDisplayScale.value)),
+          Math.max(1, Math.round(image.height * previewDisplayScale.value))
+        );
+      });
+
+      const resizedPreviewImageStyle = computed(() => {
+        const resizedImageInfo = currentResizedImage.value;
+        if (!resizedImageInfo) return {};
+
+        return buildPreviewImageStyle(
+          Math.max(1, Math.round(resizedImageInfo.width * previewDisplayScale.value)),
+          Math.max(1, Math.round(resizedImageInfo.height * previewDisplayScale.value))
+        );
+      });
 
       const loadImageDimensions = (url: string) =>
         new Promise<{ width: number; height: number }>((resolve) => {
@@ -336,7 +448,10 @@
               ctx.drawImage(img, 0, 0, target.width, target.height);
               const resizedDataUrl = canvas.toDataURL('image/jpeg');
               const resizedBytes = dataUrlToUint8Array(resizedDataUrl);
-              const resizedBytesWithExif = copyExifSegments(resizedBytes, image.exifSegments);
+              const resizedBytesWithExif = copyExifSegments(
+                resizedBytes,
+                normalizeExifSegmentsOrientation(image.exifSegments)
+              );
               const resizedBlob = new Blob([resizedBytesWithExif], { type: 'image/jpeg' });
 
               resolve({
@@ -402,6 +517,8 @@
         previewCounterLabel,
         previewFileName,
         resizeEstimateLabel,
+        originalPreviewImageStyle,
+        resizedPreviewImageStyle,
         hasMultipleImages,
         canGoPrevious,
         canGoNext,
@@ -434,10 +551,7 @@
     overflow: hidden;
   }
   .thumbnail-frame img {
-    height: 100%;
-    max-width: 100%;
     object-fit: contain;
-    width: 100%;
   }
   .resize-controls {
     margin-top: 20px;
