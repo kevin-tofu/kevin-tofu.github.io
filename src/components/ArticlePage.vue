@@ -54,6 +54,11 @@
     font-size: 1.2em;
     overflow-x: auto;
   }
+
+  :deep(.katex-raw) {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
 }
 
 .card-subtitle {
@@ -160,7 +165,17 @@
                 style="position: fixed; top: 8vh; right: 8vw; font-size: 1.5rem;"
               />
               <q-card-section>
-                <div class="modal-content" v-html="item.html_content"></div>
+                <div class="row justify-end q-mb-sm">
+                  <q-toggle
+                    v-model="mathEnabled[index]"
+                    :label="mathEnabled[index] ? '数式表示' : 'KaTeX生表示'"
+                    color="primary"
+                  />
+                </div>
+                <div
+                  class="modal-content"
+                  v-html="mathEnabled[index] ? item.html_content : item.raw_math_content"
+                ></div>
               </q-card-section>
             </q-card>
 
@@ -189,6 +204,7 @@ type ArticleItem = {
   title: string;
   subtitle: string;
   html_content: string;
+  raw_math_content: string;
   sentence: string;
 };
 
@@ -223,6 +239,7 @@ export default defineComponent({
     // const bars = ref<(boolean | null)[]>(new Array(N).fill(false));
     // const bars = ref<(boolean | null)[]>([]);
     const bars = ref<(boolean | null)[]>([]);
+    const mathEnabled = ref<boolean[]>([]);
 
     function openDialog(index: number) {
       while (bars.value.length <= index) {
@@ -282,6 +299,7 @@ export default defineComponent({
         }
       });
       bars.value = res.data.map(() => false);
+      mathEnabled.value = res.data.map(() => true);
 
 
       totalPage.value = Math.ceil(parseInt(res.headers['x-wp-totalpages']) || 1)
@@ -297,6 +315,7 @@ export default defineComponent({
             : value.title.rendered,
         subtitle: value.excerpt.rendered.replace(/(<([^>]+)>)/gi, ''),
         html_content: renderMath(value.content.rendered),
+        raw_math_content: renderMath(value.content.rendered, true),
         sentence: ''
       }))
     )
@@ -345,7 +364,7 @@ export default defineComponent({
         await get_post(selected.value); // ページ内容を再取得する
     }
 
-    function renderMath(raw: string) {
+    function renderMath(raw: string, showRawMath = false) {
       // WordPress shortcodes may be HTML-escaped; normalize brackets first
       const normalizedRaw = raw
         .replace(/&#91;/gi, '[')
@@ -357,48 +376,57 @@ export default defineComponent({
       const wpBlockPattern = /<div[^>]*wp-block-katex[^>]*?>\s*<pre>([\s\S]*?)<\/pre>\s*<\/div>/gi
       const shortcodePattern = /\[katex\]([\s\S]*?)\[\/katex\]/gi
       const blockPatterns = [
-        { re: /\$\$([\s\S]*?)\$\$/g, displayMode: true },   // $$ ... $$
-        { re: /\\\[([\s\S]*?)\\\]/g, displayMode: true }    // \[ ... \]
+        { re: /\$\$([\s\S]*?)\$\$/g, displayMode: true, open: '$$', close: '$$' },   // $$ ... $$
+        { re: /\\\[([\s\S]*?)\\\]/g, displayMode: true, open: '\\[', close: '\\]' }    // \[ ... \]
       ]
       const inlinePatterns = [
-        { re: new RegExp('(^|[^$])\\$([^$\\n]+?)\\$', 'g'), displayMode: false, hasPrefix: true }, // $ ... $
-        { re: /\\\(([\s\S]*?)\\\)/g, displayMode: false, hasPrefix: false }      // \( ... \)
+        { re: new RegExp('(^|[^$])\\$([^$\\n]+?)\\$', 'g'), displayMode: false, hasPrefix: true, open: '$', close: '$' }, // $ ... $
+        { re: /\\\(([\s\S]*?)\\\)/g, displayMode: false, hasPrefix: false, open: '\\(', close: '\\)' }      // \( ... \)
       ]
 
-      let rendered = normalizedRaw.replace(wpBlockPattern, (_, expr: string) =>
-        katex.renderToString(expr.trim(), {
-          displayMode: true,
+      const escapeHtml = (text: string) => text
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+
+      const rawMath = (source: string) => `<code class="katex-raw">${escapeHtml(source)}</code>`
+      const renderExpression = (expr: string, displayMode: boolean) => {
+        if (showRawMath) return rawMath(expr.trim())
+        return katex.renderToString(expr.trim(), {
+          displayMode,
           throwOnError: false,
           output: 'html'
         })
+      }
+
+      let rendered = normalizedRaw.replace(wpBlockPattern, (_, expr: string) =>
+        showRawMath
+          ? `<pre>${rawMath(expr.trim())}</pre>`
+          : renderExpression(expr, true)
       )
 
       rendered = rendered.replace(shortcodePattern, (_, expr: string) =>
-        katex.renderToString(expr.trim(), {
-          displayMode: true,
-          throwOnError: false,
-          output: 'html'
-        })
+        showRawMath
+          ? rawMath(`[katex]${expr}[/katex]`)
+          : renderExpression(expr, true)
       )
-      for (const { re, displayMode } of blockPatterns) {
-        rendered = rendered.replace(re, (_, expr: string) =>
-          katex.renderToString(expr.trim(), {
-            displayMode,
-            throwOnError: false,
-            output: 'html'
-          })
-        )
+      for (const { re, displayMode, open, close } of blockPatterns) {
+        rendered = rendered.replace(re, (_, expr: string) => {
+          if (showRawMath) {
+            return rawMath(`${open}${expr}${close}`)
+          }
+          return renderExpression(expr, displayMode)
+        })
       }
 
-      for (const { re, displayMode, hasPrefix } of inlinePatterns) {
+      for (const { re, displayMode, hasPrefix, open, close } of inlinePatterns) {
         rendered = rendered.replace(re, (...args) => {
           const expr = hasPrefix ? args[2] : args[1]
           const prefix = hasPrefix ? args[1] : ''
-          return `${prefix}${katex.renderToString(expr.trim(), {
-            displayMode,
-            throwOnError: false,
-            output: 'html'
-          })}`
+          if (showRawMath) {
+            return `${prefix}${rawMath(`${open}${expr}${close}`)}`
+          }
+          return `${prefix}${renderExpression(expr, displayMode)}`
         })
       }
 
@@ -418,6 +446,7 @@ export default defineComponent({
         evenv_btn_left2,
         evenv_btn_right2,
         bars,
+        mathEnabled,
         openDialog, closeDialog,
         searchKey,
         event_search

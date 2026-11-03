@@ -117,7 +117,10 @@ export default {
   },
   pages: {
     index: {
-      profile: 'プロフィール'
+      profile: 'プロフィール',
+      recentArticles: '最近の記事',
+      allArticles: '記事一覧',
+      recentArticlesUnavailable: '記事を読み込めませんでした。'
     },
     about: {
       title: 'このサイトについて',

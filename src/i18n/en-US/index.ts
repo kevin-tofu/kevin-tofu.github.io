@@ -117,7 +117,10 @@ export default {
   },
   pages: {
     index: {
-      profile: 'Profile'
+      profile: 'Profile',
+      recentArticles: 'Recent Articles',
+      allArticles: 'All Articles',
+      recentArticlesUnavailable: 'Could not load articles.'
     },
     about: {
       title: 'About this Website',
