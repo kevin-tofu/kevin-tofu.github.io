@@ -79,7 +79,7 @@
             <q-img :src="article.image" :alt="''" class="recent-thumbnail" />
           </q-item-section>
           <q-item-section>
-            <q-item-label v-html="article.title"></q-item-label>
+            <q-item-label><span v-html="article.title"></span></q-item-label>
             <q-item-label caption>{{ article.date }}</q-item-label>
           </q-item-section>
           <q-item-section side>
