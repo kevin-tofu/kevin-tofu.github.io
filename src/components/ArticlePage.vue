@@ -408,7 +408,7 @@ export default defineComponent({
       rendered = rendered.replace(shortcodePattern, (_, expr: string) =>
         showRawMath
           ? rawMath(`[katex]${expr}[/katex]`)
-          : renderExpression(expr, true)
+          : renderExpression(expr, false)
       )
       for (const { re, displayMode, open, close } of blockPatterns) {
         rendered = rendered.replace(re, (_, expr: string) => {
